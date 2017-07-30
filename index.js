@@ -26,6 +26,8 @@ let fSum = 0
 
 const leftPad = (s, c, n) =>{ s = s.toString(); c = c.toString(); return s.length > n ? s : c.repeat(n - s.length) + s; }
 
+const keep = keepEveryN(4) // every nth motion event will render to UI
+
 function motion(event) {
   if (!event.acceleration.x) {
 
@@ -36,7 +38,7 @@ function motion(event) {
     return
   }
 
-  if (tooFast(Date.now())) {
+  if (keep()) {
     return;
   }
   // Just accel data
@@ -81,9 +83,9 @@ function formatData(data) {
 }
 
 // used to slow down the text rendering on motion event
-function tooFast(date) {
-  console.log(date)
-  return date % 2 !== 0
+function keepEveryN(n) {
+  let i = n
+  return () => i++ % n !== 0
 }
 
 // trying to use git/hub
