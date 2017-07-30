@@ -40,3 +40,5 @@ function tooFast(date) {
   console.log(date)
   return date % 2 !== 0
 }
+
+// trying to use git/hub
