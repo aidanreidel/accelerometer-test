@@ -4,7 +4,6 @@ if (window.DeviceMotionEvent) {
   console.log("DeviceMotionEvent is not supported")
 }
 
-// just accel
 const accel_x = document.getElementById('accel-x')
 const accel_y = document.getElementById('accel-y')
 const accel_z = document.getElementById('accel-z')
@@ -97,13 +96,13 @@ function motion(event) {
   timer.innerHTML = timeElapsed
 
 // X
-  totalAccelX += event.acceleration.x
-  averageAccelX = totalAccelX / eventCount
-  averageAccelXEl.innerHTML = `x-axis: ${formatData(averageAccelX, 4)} m/s<sup>2</sup>`
+  totalAccelX += Number(event.acceleration.x.toFixed(2))
+  averageAccelX = Number((totalAccelX / eventCount).toFixed(2))
+  averageAccelXEl.innerHTML = `x-axis: ${formatData(averageAccelX, 2)} m/s<sup>2</sup>`
 
   // this is probably final velocity, not average.
-  averageVelX = averageAccelX * (timeElapsed / 1000)
-  averageVelXEl.innerHTML = `x-axis: ${formatData(averageVelX, 4)} m/s`
+  averageVelX = Number((averageAccelX * (timeElapsed / 1000)).toFixed(2))
+  averageVelXEl.innerHTML = `x-axis: ${formatData(averageVelX, 2)} m/s`
 
 /*
 // Y
@@ -128,7 +127,7 @@ function motion(event) {
 }
 
 function formatData(data, precision) {
-  if (data) {
+  if (data !== null || data !== undefined) {
     return leftPad(data.toFixed(precision), ' ', 8)
   } else {
     return null
